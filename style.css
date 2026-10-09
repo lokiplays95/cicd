@@ -6,24 +6,34 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #667eea, #764ba2, #6dd5ed);
+    background-size: 300% 300%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: backgroundMove 10s ease infinite;
 }
 
+/* Floating container animation */
 .container {
     background: white;
     padding: 50px;
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: floatBox 4s ease-in-out infinite;
+    transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
     color: #333;
     margin-bottom: 15px;
+    animation: fadeIn 1s ease;
 }
 
 p {
@@ -39,14 +49,67 @@ button {
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
+    transition: transform 0.3s ease, background 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
 button:hover {
     background: #5568d9;
+    transform: scale(1.08);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
+}
+
+button:active {
+    transform: scale(0.95);
 }
 
 #message {
     margin-top: 20px;
     font-weight: bold;
     color: #667eea;
+}
+
+/* Smooth floating movement */
+@keyframes floatBox {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+/* Animated gradient background */
+@keyframes backgroundMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Heading entrance animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Accessibility: respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
